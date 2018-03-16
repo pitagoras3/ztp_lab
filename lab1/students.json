@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "name": "Maciek",
+    "surname": "Brzeczyszczykiewicz",
+    "courseList": [
+      {
+        "id": 1,
+        "title": "PO"
+      },
+      {
+        "id": 3,
+        "title": "RSI"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Borubar",
+    "surname": "Dudek",
+    "courseList": []
+  },
+  {
+    "id": 3,
+    "name": "Test",
+    "surname": "Test1",
+    "courseList": [
+      {
+        "id": 4,
+        "title": "Cokolwiek"
+      }
+    ]
+  }
+]

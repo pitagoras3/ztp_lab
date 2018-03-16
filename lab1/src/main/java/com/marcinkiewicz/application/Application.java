@@ -1,11 +1,11 @@
 package com.marcinkiewicz.application;
 
-import com.marcinkiewicz.controller.HomeController;
+import com.marcinkiewicz.view_controller.HomeViewController;
 
 public class Application {
 
     public static void main(String[] args) {
-        HomeController homeController = new HomeController();
-        homeController.start();
+        HomeViewController homeViewController = new HomeViewController();
+        homeViewController.start();
     }
 }
