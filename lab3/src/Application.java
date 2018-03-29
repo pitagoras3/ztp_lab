@@ -12,11 +12,20 @@ public class Application {
             Box charBox = Box.class.newInstance();
             Box booleanBox = Box.class.newInstance();
 
-            stringBox.setGenericObject("Hello World!");
-            intBox.setGenericObject(123);
-            doubleBox.setGenericObject(1d);
-            charBox.setGenericObject('a');
-            booleanBox.setGenericObject(true);
+            stringBox.setFirstGenericObject("Hello World!");
+            stringBox.setSecondGenericObject("Hello Szymon!");
+
+            intBox.setFirstGenericObject(123);
+            intBox.setSecondGenericObject(456);
+
+            doubleBox.setFirstGenericObject(1d);
+            doubleBox.setSecondGenericObject(10d);
+
+            charBox.setFirstGenericObject('a');
+            charBox.setSecondGenericObject('b');
+
+            booleanBox.setFirstGenericObject(true);
+            booleanBox.setSecondGenericObject(false);
 
 
             // Create generic array
@@ -28,14 +37,32 @@ public class Application {
             boxArray[3] = charBox;
             boxArray[4] = booleanBox;
 
-            // Check if everything is ok
+            // Check if array of generics works fine
             for(int i = 0; i < BOX_ARRAY_SIZE; i++){
-                System.out.printf("%s %-30s %s %-20s %n",
+                System.out.printf("%-30s %-30s %-30s %-20s %n",
                         "Generic object type in box:",
-                        boxArray[i].getGenericObject().getClass().toString(),
+                        boxArray[i].getFirstGenericObject().getClass().toString(),
                         "Generic object value in box:",
-                        boxArray[i].getGenericObject());
+                        boxArray[i].toString());
             }
+
+            // Test cloning object
+
+            System.out.println("=========================");
+            System.out.println("======== CLONING ========");
+            System.out.println("=========================");
+
+            Box clonedStringBox = (Box) stringBox.clone();
+            Box clonedIntBox = (Box) intBox.clone();
+            Box clonedDoubleBox = (Box) doubleBox.clone();
+            Box clonedCharBox = (Box) charBox.clone();
+            Box clonedBooleanBox = (Box) booleanBox.clone();
+
+            System.out.printf("%s %-80s %-10s %-40s %n", "Cloned ", stringBox.toString(), "into ", clonedStringBox.toString());
+            System.out.printf("%s %-80s %-10s %-40s %n", "Cloned ", intBox.toString(), "into ", clonedIntBox.toString());
+            System.out.printf("%s %-80s %-10s %-40s %n", "Cloned ", doubleBox.toString(), "into ", clonedDoubleBox.toString());
+            System.out.printf("%s %-80s %-10s %-40s %n", "Cloned ", charBox.toString(), "into ", clonedCharBox.toString());
+            System.out.printf("%s %-80s %-10s %-40s %n", "Cloned ", booleanBox.toString(), "into ", clonedBooleanBox.toString());
 
         } catch (InstantiationException e) {
             e.printStackTrace();
