@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Random;
 
 public class OptimizedArraysTests implements ArraysTests {
@@ -24,7 +25,7 @@ public class OptimizedArraysTests implements ArraysTests {
     }
 
     public void sort(){
-        Collections.sort(intArray);
+        intArray.sort(Comparator.naturalOrder());
     }
 
     public void reset(){
