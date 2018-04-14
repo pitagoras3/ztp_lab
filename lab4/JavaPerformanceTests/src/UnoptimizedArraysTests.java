@@ -1,16 +1,17 @@
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 public class UnoptimizedArraysTests implements ArraysTests {
 
     private int arraySize;
-    private int[] intArray;
+    private ArrayList<Integer> intArray;
 
     private Random random;
 
     public UnoptimizedArraysTests(int arraySize){
         this.arraySize = arraySize;
-        this.intArray = new int[arraySize];
+        this.intArray = new ArrayList<>(arraySize);
         this.random = new Random();
 
         fillArrayRandomly();
@@ -18,15 +19,16 @@ public class UnoptimizedArraysTests implements ArraysTests {
 
     public void fillArrayRandomly(){
         for(int i = 0; i < arraySize; i++){
-            intArray[i] = random.nextInt();
+            intArray.add(random.nextInt());
         }
     }
 
     public void sort(){
-        Arrays.sort(intArray);
+        intArray.sort(Comparator.naturalOrder());
     }
 
     public void reset(){
+        intArray.clear();
         fillArrayRandomly();
     }
 }
