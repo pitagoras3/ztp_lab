@@ -1,9 +1,4 @@
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class Box<T> implements Cloneable {
 
@@ -11,7 +6,19 @@ public class Box<T> implements Cloneable {
     private T secondGenericObject;
 
     public Box() {
-        this.firstGenericObject = new T();
+        this.firstGenericObject = null;
+        this.secondGenericObject = null;
+    }
+
+    //Constructor as fabric method
+    public Box(String className){
+        try{
+            Class clazz = Class.forName(className);
+            this.firstGenericObject = (T) clazz.newInstance();
+        }
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
+            e.printStackTrace();
+        }
     }
 
     public Box(T firstGenericObject, T secondGenericObject) {
@@ -35,51 +42,25 @@ public class Box<T> implements Cloneable {
         this.secondGenericObject = secondGenericObject;
     }
 
-    public void metodaFabrykujaca(){
-        this.firstGenericObject = new T();
-        this.secondGenericObject = new T();
-
-    }
-
-//    @Override
-//    protected Object clone() {
-//        Box<T> cloned = new Box<>();
-//        try{
-//            cloned.firstGenericObject = (T) this.firstGenericObject.getClass().getMethod("clone").invoke(this.firstGenericObject);
-//            cloned.secondGenericObject = (T) this.secondGenericObject.getClass().getMethod("clone").invoke(this.secondGenericObject);
-//        }
-//        catch (NoSuchMethodException e) {
-//            cloned.firstGenericObject = this.firstGenericObject;
-//            cloned.secondGenericObject = this.secondGenericObject;
-//        }
-//        catch (InvocationTargetException e){
-//            e.printStackTrace();
-//        }
-//        catch (IllegalAccessException e){
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return cloned;
-//    }
-
+    @Override
     protected Object clone() {
-        Box<T> clonedBox = null;
-        try {
-            clonedBox = Box.class.newInstance();
-            Class<?> currentClass = this.getClass();
-
-            List<Field> fields = new ArrayList<>(Arrays.asList(currentClass.getDeclaredFields()));
-            for (Field field : fields) {
-                field.setAccessible(true);
-                field.set(clonedBox, field.get(this));
-            }
-
-        } catch (Exception e) {
+        Box<T> cloned = new Box<>();
+        try{
+            cloned.firstGenericObject = (T) this.firstGenericObject.getClass().getMethod("clone").invoke(this.firstGenericObject);
+            cloned.secondGenericObject = (T) this.secondGenericObject.getClass().getMethod("clone").invoke(this.secondGenericObject);
+        }
+        catch (NoSuchMethodException e) {
+            cloned.firstGenericObject = this.firstGenericObject;
+            cloned.secondGenericObject = this.secondGenericObject;
+        }
+        catch (InvocationTargetException e){
             e.printStackTrace();
         }
-        return clonedBox;
+        catch (IllegalAccessException e){
+            e.printStackTrace();
+        }
+
+        return cloned;
     }
 
     @Override

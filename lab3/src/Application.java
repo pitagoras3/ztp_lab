@@ -5,13 +5,18 @@ public class Application {
     public static void main(String[] args){
         try {
 
+            System.out.println(Integer.class.getName());
             // Create generic objects using reflection
             Box stringBox   =   Box.class.newInstance();
             Box intBox      =   Box.class.newInstance();
+//            Box intBox = new Box("java.lang.Integer"); - nie zadziała ze względu na mechanizm refleksji - potrzebny jest
+//              konstruktor bezparametrowy inicjowanej klasy.
             Box doubleBox   =   Box.class.newInstance();
             Box charBox     =   Box.class.newInstance();
             Box booleanBox  =   Box.class.newInstance();
-            Box myObjectBox =   Box.class.newInstance();
+//            Box myObjectBox =   Box.class.newInstance();
+            Box myObjectBox = new Box("MyObject");
+
 
             stringBox.setFirstGenericObject("Hello World!");
             stringBox.setSecondGenericObject("Hello Szymon!");
@@ -33,8 +38,8 @@ public class Application {
 
             // Create generic array
 
-
-            Box<TUTAJ POWINNO BYC COS>[] boxArray = new Box[BOX_ARRAY_SIZE];
+//            Box<TUTAJ POWINNO BYC COS>[] boxArray = new Box[BOX_ARRAY_SIZE];
+            Box<?>[] boxArray = new Box[BOX_ARRAY_SIZE];
 
             boxArray[0] = stringBox;
             boxArray[1] = intBox;
