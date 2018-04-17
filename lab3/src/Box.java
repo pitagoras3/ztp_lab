@@ -15,6 +15,7 @@ public class Box<T> implements Cloneable {
         try{
             Class clazz = Class.forName(className);
             this.firstGenericObject = (T) clazz.newInstance();
+            this.secondGenericObject = (T) clazz.newInstance();
         }
         catch (ClassNotFoundException | InstantiationException | IllegalAccessException e){
             e.printStackTrace();

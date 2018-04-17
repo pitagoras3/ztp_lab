@@ -1,3 +1,7 @@
+import java.lang.reflect.Array;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 public class Application {
 
     public static final int BOX_ARRAY_SIZE = 6;
@@ -5,7 +9,6 @@ public class Application {
     public static void main(String[] args){
         try {
 
-            System.out.println(Integer.class.getName());
             // Create generic objects using reflection
             Box stringBox   =   Box.class.newInstance();
             Box intBox      =   Box.class.newInstance();
@@ -16,6 +19,9 @@ public class Application {
             Box booleanBox  =   Box.class.newInstance();
 //            Box myObjectBox =   Box.class.newInstance();
             Box myObjectBox = new Box("MyObject");
+
+            Constructor<Box> constructor = Box.class.getConstructor(String.class);
+            Box<MyObject> myOtherObjectBox = constructor.newInstance("MyObject");
 
 
             stringBox.setFirstGenericObject("Hello World!");
@@ -39,7 +45,10 @@ public class Application {
             // Create generic array
 
 //            Box<TUTAJ POWINNO BYC COS>[] boxArray = new Box[BOX_ARRAY_SIZE];
-            Box<?>[] boxArray = new Box[BOX_ARRAY_SIZE];
+
+//            Box<MyObject>[] boxArray = new Box<MyObject>[BOX_ARRAY_SIZE];
+            Box<MyObject>[] boxArray = (Box<MyObject>[]) Array.newInstance(Box.class, BOX_ARRAY_SIZE);
+
 
             boxArray[0] = stringBox;
             boxArray[1] = intBox;
@@ -93,6 +102,10 @@ public class Application {
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }

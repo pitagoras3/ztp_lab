@@ -1,5 +1,6 @@
+import java.util.ArrayList;
+
 public interface ArraysTests {
-    void fillArrayRandomly();
     void sort();
-    void reset();
+    void setRandomArray(ArrayList<Integer> randomIntegers);
 }

@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Application {
+
+    //Random numbers generating object
+    private static final Random random = new Random();
 
     //Constants
     public static final int AMOUNT_OF_TESTS     = 10;
@@ -48,6 +52,8 @@ public class Application {
         optimizedTests_100000 = new OptimizedArraysTests(HUNDRED_THOUSAND);
 
         for(int i = 0; i < AMOUNT_OF_TESTS; i++){
+            setAllArraysRandom();
+
             unoptimizedTests_1000_times.add(performanceTestMethod(unoptimizedTests_1000));
             optimizedTests_1000_times.add(performanceTestMethod(optimizedTests_1000));
 
@@ -56,8 +62,7 @@ public class Application {
 
             unoptimizedTests_100000_times.add(performanceTestMethod(unoptimizedTests_100000));
             optimizedTests_100000_times.add(performanceTestMethod(optimizedTests_100000));
-
-            resetAllTests();
+            
         }
 
         sortTestTimes();
@@ -110,14 +115,29 @@ public class Application {
         System.out.printf("%-25s %-10d %n", "Optimized 100000 time:", countMedianFromList(optimizedTests_100000_times));
     }
 
-    private static void resetAllTests(){
-        unoptimizedTests_1000.reset();
-        optimizedTests_1000.reset();
+    private static void setAllArraysRandom(){
 
-        unoptimizedTests_10000.reset();
-        optimizedTests_10000.reset();
+        ArrayList<Integer> oneThousandRandomIntegers = createRandomIntegerList(ONE_THOUSAND);
+        ArrayList<Integer> tenThousandRandomIntegers = createRandomIntegerList(TEN_THOUSAND);
+        ArrayList<Integer> hundredThousandRandomIntegers = createRandomIntegerList(HUNDRED_THOUSAND);
 
-        unoptimizedTests_100000.reset();
-        optimizedTests_100000.reset();
+        unoptimizedTests_1000.setRandomArray(oneThousandRandomIntegers);
+        optimizedTests_1000.setRandomArray(oneThousandRandomIntegers);
+
+        unoptimizedTests_10000.setRandomArray(tenThousandRandomIntegers);
+        optimizedTests_10000.setRandomArray(tenThousandRandomIntegers);
+
+        unoptimizedTests_100000.setRandomArray(hundredThousandRandomIntegers);
+        optimizedTests_100000.setRandomArray(hundredThousandRandomIntegers);
+    }
+
+    private static ArrayList<Integer> createRandomIntegerList(int listSize){
+        ArrayList<Integer> randomIntegerList = new ArrayList<>();
+
+        for(int i = 0; i < listSize; i++){
+            randomIntegerList.add(random.nextInt());
+        }
+
+        return randomIntegerList;
     }
 }
