@@ -16,3 +16,27 @@ W programie należało wykorzystać wszystkie typy polimorfizmu:
 
 ## [lab3] Reflections
 Zadanie 3 polegało na wykorzystaniu mechanizmów refleksji do stworzenia instancji obiektów typu generycznego i tablicy obiektów typu generycznego. Dodatkowo nalezalo zaimplementować metodę clone dla dowolnego typu generycznego (z jedenym parametrem generycznym) oraz klasę z dwoma polami zgodnymi z tym parametrem (np. Pair<T> lub podobna klasa).
+
+## [lab4] Performance
+W zadaniu 4 nalezało sprawdzić czy zastępienie ArrayListy zwykłą tablicą przyspieszy wykonywanie konretnej operacji (w moim przypadku było to sortowanie tablicy).
+
+Tablice sortowane były z wykorzystaniem statycznej metody klasy _Array_
+
+```Java
+Arrays.sort(array);
+```
+
+Jednak _niezalezne od tablicy_ sortowanie Arraylisty osiągnąłem poprzez wykorzystanie __strumieni__ w Javie 8.
+
+```Java
+list.stream().sorted().collect(Collectors.toCollection(ArrayList::new));
+```
+
+_Uzyskane wyniki czasowe_
+
+Ponizsze wyniki czasowe przedstawione są w _nanosekundach_.
+
+|           | 1000          | 10 000            | 100 000       |
+|-----------| ------------: |-------------:     | -----:        |
+|Array      |   83471       | 888391            | 9971145       |
+|ArrayList  |   359399      | 2672911           | 36849428      |
