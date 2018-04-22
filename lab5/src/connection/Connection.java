@@ -17,8 +17,8 @@ public class Connection {
     private int timeout;
     private boolean getRespondMessage;
     private boolean showWarnings;
-    private boolean shouldRetryWhenFail;
-    private boolean shouldUseSSL;
+    private boolean setRetryWhenFail;
+    private boolean setUseSSL;
 
     private ConnectionState connectionState;
 
@@ -42,8 +42,8 @@ public class Connection {
         private int timeout;
         private boolean getRespondMessage;
         private boolean showWarnings;
-        private boolean shouldRetryWhenFail;
-        private boolean shouldUseSSL;
+        private boolean setRetryWhenFail;
+        private boolean setUseSSL;
 
         public Builder(int port, String host, String protocol){
 
@@ -59,8 +59,8 @@ public class Connection {
             this.timeout = 5000;
             this.getRespondMessage = true;
             this.showWarnings = false;
-            this.shouldRetryWhenFail = false;
-            this.shouldUseSSL = false;
+            this.setRetryWhenFail = false;
+            this.setUseSSL = false;
         }
 
         public Builder setMethod(String method){
@@ -93,13 +93,13 @@ public class Connection {
             return this;
         }
 
-        public Builder setShouldRetryWhenFail(boolean shouldRetryWhenFail){
-            this.shouldRetryWhenFail = shouldRetryWhenFail;
+        public Builder setRetryWhenFail(boolean setRetryWhenFail){
+            this.setRetryWhenFail = setRetryWhenFail;
             return this;
         }
 
-        public Builder setShouldUseSSL(boolean shouldUseSSL){
-            this.shouldUseSSL = shouldUseSSL;
+        public Builder setUseSSL(boolean setUseSSL){
+            this.setUseSSL = setUseSSL;
             return this;
         }
 
