@@ -56,9 +56,9 @@ public class Connection {
     @Override
     public String toString() {
         return "Connection{" +
+                "\n\tprotocol='" + protocol + '\'' +
                 "\n\tport=" + port +
                 "\n\thost='" + host + '\'' +
-                "\n\tprotocol='" + protocol + '\'' +
                 "\n\tmethod='" + method + '\'' +
                 "\n\tdata='" + data + '\'' +
                 "\n\tsendDelay=" + sendDelay +
