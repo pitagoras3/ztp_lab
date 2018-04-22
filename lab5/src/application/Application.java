@@ -50,8 +50,13 @@ public class Application {
     }
 
     private static void logAllConnections(){
+        System.out.format("%s %n", httpConnection.toString());
         httpConnection.getConnectionState().logConnectionState();
+
+        System.out.format("%n%s %n", mqttConnection.toString());
         mqttConnection.getConnectionState().logConnectionState();
+
+        System.out.format("%n%s %n", amqpConnection.toString());
         amqpConnection.getConnectionState().logConnectionState();
     }
 }

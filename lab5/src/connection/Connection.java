@@ -21,6 +21,7 @@ public class Connection {
     private boolean setRetryWhenFail;
     private boolean setUseSSL;
 
+    //Reducing tower of ifs
     private ConnectionState connectionState;
     private static final Random random = new Random();
 
@@ -33,6 +34,23 @@ public class Connection {
 
     public ConnectionState getConnectionState() {
         return connectionState;
+    }
+
+    @Override
+    public String toString() {
+        return "Connection{" +
+                "\n\tport=" + port +
+                "\n\thost='" + host + '\'' +
+                "\n\tprotocol='" + protocol + '\'' +
+                "\n\tmethod='" + method + '\'' +
+                "\n\tdata='" + data + '\'' +
+                "\n\tsendDelay=" + sendDelay +
+                "\n\ttimeout=" + timeout +
+                "\n\tgetRespondMessage=" + getRespondMessage +
+                "\n\tshowWarnings=" + showWarnings +
+                "\n\tsetRetryWhenFail=" + setRetryWhenFail +
+                "\n\tsetUseSSL=" + setUseSSL +
+                "\n}";
     }
 
     /**
