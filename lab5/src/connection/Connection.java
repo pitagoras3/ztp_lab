@@ -3,19 +3,26 @@ package connection;
 import java.util.Random;
 
 public class Connection {
-    //TODO add default fields
-    //Default fields
+
+    public static final String  DEFAULT_METHOD = "POST";
+    public static final String  DEFAULT_DATA = "";
+    public static final int     DEFAULT_DELAY = 0;
+    public static final int     DEFAULT_TIMEOUT = 5000;
+    public static final boolean DEFAULT_GET_RESPOND_MESSAGE = true;
+    public static final boolean DEFAULT_SHOW_WARNINGS = false;
+    public static final boolean DEFAULT_RETRY_WHEN_FAIL = false;
+    public static final boolean DEFAULT_USE_SSL = false;
 
     //Required fields
-    private int port;
-    private String host;
-    private String protocol;
+    private int     port;
+    private String  host;
+    private String  protocol;
 
     //Optional fields
-    private String method;
-    private String data;
-    private int sendDelay;
-    private int timeout;
+    private String  method;
+    private String  data;
+    private int     sendDelay;
+    private int     timeout;
     private boolean getRespondMessage;
     private boolean showWarnings;
     private boolean setRetryWhenFail;
@@ -26,10 +33,20 @@ public class Connection {
     private static final Random random = new Random();
 
     private Connection(Builder connectionBuilder){
+        //Required fields
         this.port = connectionBuilder.port;
         this.host = connectionBuilder.host;
         this.protocol = connectionBuilder.protocol;
 
+        //Optional fields
+        this.method             = connectionBuilder.method;
+        this.data               = connectionBuilder.data;
+        this.sendDelay          = connectionBuilder.sendDelay;
+        this.timeout            = connectionBuilder.timeout;
+        this.getRespondMessage  = connectionBuilder.getRespondMessage;
+        this.showWarnings       = connectionBuilder.showWarnings;
+        this.setRetryWhenFail   = connectionBuilder.setRetryWhenFail;
+        this.setUseSSL          = connectionBuilder.setUseSSL;
     }
 
     public ConnectionState getConnectionState() {
@@ -82,15 +99,15 @@ public class Connection {
     public static class Builder{
 
         //Required fields
-        private int port;
-        private String host;
-        private String protocol;
+        private int     port;
+        private String  host;
+        private String  protocol;
 
         //Optional fields
-        private String method;
-        private String data;
-        private int sendDelay;
-        private int timeout;
+        private String  method;
+        private String  data;
+        private int     sendDelay;
+        private int     timeout;
         private boolean getRespondMessage;
         private boolean showWarnings;
         private boolean setRetryWhenFail;
@@ -99,19 +116,19 @@ public class Connection {
         public Builder(int port, String host, String protocol){
 
             //Set values from user
-            this.port = port;
-            this.host = host;
-            this.protocol = protocol;
+            this.port       = port;
+            this.host       = host;
+            this.protocol   = protocol;
 
             //Set defaultValues
-            this.method = "POST";
-            this.data = "";
-            this.sendDelay = 0;
-            this.timeout = 5000;
-            this.getRespondMessage = true;
-            this.showWarnings = false;
-            this.setRetryWhenFail = false;
-            this.setUseSSL = false;
+            this.method             = DEFAULT_METHOD;
+            this.data               = DEFAULT_DATA;
+            this.sendDelay          = DEFAULT_DELAY;
+            this.timeout            = DEFAULT_TIMEOUT;
+            this.getRespondMessage  = DEFAULT_GET_RESPOND_MESSAGE;
+            this.showWarnings       = DEFAULT_SHOW_WARNINGS;
+            this.setRetryWhenFail   = DEFAULT_RETRY_WHEN_FAIL;
+            this.setUseSSL          = DEFAULT_USE_SSL;
         }
 
         public Builder setMethod(String method){
