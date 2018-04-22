@@ -12,14 +12,12 @@ public class Application {
 
     //Create connection and log it status
     public static void main(String[] args) {
-
-
-
-
-
+        initializeAllConnections();
+        tryUseAllConnections();
+        logAllConnections();
     }
 
-    private static void initializeConnections(){
+    private static void initializeAllConnections(){
 
         //Initialize httpConnection
         httpConnection = new Connection.Builder(20, "127.0.0.1", "HTTP")
@@ -43,5 +41,17 @@ public class Application {
                         "}")
                 .setGetRespondMessage(true)
                 .build();
+    }
+
+    private static void tryUseAllConnections(){
+        httpConnection.initializeConnection();
+        mqttConnection.initializeConnection();
+        amqpConnection.initializeConnection();
+    }
+
+    private static void logAllConnections(){
+        httpConnection.getConnectionState().logConnectionState();
+        mqttConnection.getConnectionState().logConnectionState();
+        amqpConnection.getConnectionState().logConnectionState();
     }
 }

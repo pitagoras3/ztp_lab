@@ -1,5 +1,6 @@
 package connection;
 
 public interface ConnectionState {
-    String logConnectionState();
+    int AMOUNT_OF_CONNECTION_TYPES = 4;
+    void logConnectionState();
 }

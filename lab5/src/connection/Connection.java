@@ -1,9 +1,10 @@
 package connection;
 
-public class Connection {
-    //Default fields
-//    private static final DEFAULT_
+import java.util.Random;
 
+public class Connection {
+    //TODO add default fields
+    //Default fields
 
     //Required fields
     private int port;
@@ -21,11 +22,43 @@ public class Connection {
     private boolean setUseSSL;
 
     private ConnectionState connectionState;
+    private static final Random random = new Random();
 
     private Connection(Builder connectionBuilder){
         this.port = connectionBuilder.port;
         this.host = connectionBuilder.host;
         this.protocol = connectionBuilder.protocol;
+
+    }
+
+    public ConnectionState getConnectionState() {
+        return connectionState;
+    }
+
+    /**
+     * Initialize connection is 'dummy' function for mocking connectionState
+     */
+    public void initializeConnection(){
+        int randomInt = random.nextInt(100);
+        int modulo = randomInt % ConnectionState.AMOUNT_OF_CONNECTION_TYPES;
+
+        switch (modulo){
+            case 0:
+                connectionState = new ConnectionStateAvailable();
+                break;
+
+            case 1:
+                connectionState = new ConnectionStateConnected();
+                break;
+
+            case 2:
+                connectionState = new ConnectionStateUnavailable();
+                break;
+
+            case 3:
+                connectionState = new ConnectionStateDisconnected();
+                break;
+        }
     }
 
     public static class Builder{
