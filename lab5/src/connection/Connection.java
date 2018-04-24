@@ -49,8 +49,24 @@ public class Connection {
         this.setUseSSL          = connectionBuilder.setUseSSL;
     }
 
+    public void connect(){
+        connectionState.connect(this);
+    }
+
+    public void logConnectionState(){
+        connectionState.logConnectionState();
+    }
+
+    public void disconnect(){
+        connectionState.disconnect(this);
+    }
+
     public ConnectionState getConnectionState() {
         return connectionState;
+    }
+
+    public void setConnectionState(ConnectionState connectionState){
+        this.connectionState = connectionState;
     }
 
     @Override

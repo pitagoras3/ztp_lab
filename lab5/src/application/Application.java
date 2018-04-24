@@ -13,8 +13,8 @@ public class Application {
     //Create connection and log it status
     public static void main(String[] args) {
         initializeAllConnections();
-        tryUseAllConnections();
-        logAllConnections();
+        mockAllConnectionsStates();
+        tryConnectLogAndDisconnectConnection(httpConnection);
     }
 
     private static void initializeAllConnections(){
@@ -43,7 +43,7 @@ public class Application {
                 .build();
     }
 
-    private static void tryUseAllConnections(){
+    private static void mockAllConnectionsStates(){
         httpConnection.initializeConnection();
         mqttConnection.initializeConnection();
         amqpConnection.initializeConnection();
@@ -59,4 +59,24 @@ public class Application {
         System.out.format("%n%s%n", amqpConnection.toString());
         amqpConnection.getConnectionState().logConnectionState();
     }
+
+    private static void tryConnectAllConnections(){
+        httpConnection.connect();
+        mqttConnection.connect();
+        amqpConnection.connect();
+    }
+
+    private static void tryDisconnectAllConnections(){
+        httpConnection.disconnect();
+        mqttConnection.disconnect();
+        amqpConnection.disconnect();
+    }
+
+    private static void tryConnectLogAndDisconnectConnection(Connection connection){
+        connection.logConnectionState();
+        System.out.format("%n%s%n", connection.toString());
+        connection.connect();
+        connection.disconnect();
+    }
+
 }
