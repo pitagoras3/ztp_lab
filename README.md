@@ -40,3 +40,49 @@ Ponizsze wyniki czasowe przedstawione są w _nanosekundach_.
 |-----------| ------------: |-------------:     | -----:        |
 |Array      |   83471       | 888391            | 9971145       |
 |ArrayList  |   359399      | 2672911           | 36849428      |
+
+## [lab5] DesignPatterns
+Zadanie 5 polegało na wykorzystaniu w projekcie dwóch wzorców projektowych z listy zaproponowanej przez doktor prowadzącą zajęcia. Z grupy kreujących wybrałem wzorzec __Budowniczy__, a z behawioralnych - __Stan__.
+
+Wzorce wykorzystałem na stworzonej przeze mnie klasie _Connection_, która pozwalała na tworzenie połączeń z odpowiednim hostem i jego portem za pośrednictwem dowolnego protokołu. _Oczywiście całość jest zamockowana, nie powstaje zadne prawdziwe połączenie :(_
+
+Klasa _Connection_ posiada pola wymagane oraz opcjonalne:
+
+```Java
+    //Required fields
+    private int     port;
+    private String  host;
+    private String  protocol;
+
+    //Optional fields
+    private String  method;
+    private String  data;
+    private int     sendDelay;
+    private int     timeout;
+    private boolean getRespondMessage;
+    private boolean showWarnings;
+    private boolean setRetryWhenFail;
+    private boolean setUseSSL;
+```
+
+Ze względu na sporą ilość pól wykorzystanie wzorca __Budowniczego__ było oczywistym faktem. Wzorzec __Stanu__ wykorzystałem przy definiowaniu _stanu_ połączenia - stan ten mógł być:
+
+- Available,
+- Unavailable,
+- Connected,
+- Disconnected
+
+Interfejs _ConnectionState_ po którym dziedziczyły wszystkie stany zawierał w sobie 3 nagłówki metod:
+
+```Java
+package connection;
+
+public interface ConnectionState {
+    int AMOUNT_OF_CONNECTION_TYPES = 4;
+    void connect(Connection connection);
+    void logConnectionState();
+    void disconnect(Connection connection);
+}
+```
+
+Dzięki zastosowaniu wzorca __stanu__ mogłem pozbyć się wielopoziomowych if'ów, w których identyfikowałbym rodzaj danego połączenia.
