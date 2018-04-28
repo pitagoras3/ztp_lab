@@ -86,3 +86,17 @@ public interface ConnectionState {
 ```
 
 Dzięki zastosowaniu wzorca __stanu__ mogłem pozbyć się wielopoziomowych if'ów, w których identyfikowałbym rodzaj danego połączenia.
+
+## [lab6] Java8FunctionalFeatures
+
+W zadaniu 6 mieliśmy napisać 3 powiązane ze sobą klasy
+
+- Student,
+- Wydział,
+- Kurs
+
+A następnie do wykonania pozostały 4 zadania:
+- Filtrowanie kolekcji po odpowiednim kryterium,
+- Mapowanie kolekcji,
+- Wyciągnięcie wartości minimalnej / maksymalnej z kolekcji,
+- Grupowanie obiektów klasy według pewnej cechy.
