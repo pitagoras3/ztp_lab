@@ -43,6 +43,9 @@ public class Application {
         System.out.println("STUDENT WITH MOST COURSES");
         printStudentsWithMostCourses();
 
+        System.out.println("STUDENT WITH LEAST ECTS");
+        printStudentsWithLeastEcts();
+
     }
 
     private static void fillListsWithData(){
@@ -116,6 +119,14 @@ public class Application {
                 .orElseThrow(NoSuchElementException::new);
 
         System.out.println(studentWithMostCourses);
+    }
+
+    private static void printStudentsWithLeastEcts(){
+        Student studentWithLeastEcts = students.stream()
+                .min(Comparator.comparingInt(Student::countEcts))
+                .orElseThrow(NoSuchElementException::new);
+
+        System.out.println(studentWithLeastEcts);
     }
 
 }

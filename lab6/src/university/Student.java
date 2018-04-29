@@ -32,6 +32,10 @@ public class Student {
         return idGeneratorBuilder.toString().substring(0, 12);
     }
 
+    public int countEcts(){
+        return courses.stream().mapToInt(Course::getEcts).sum();
+    }
+
     public void addCourses(List<Course> coursesToAdd){
         courses.addAll(coursesToAdd);
     }
@@ -52,4 +56,5 @@ public class Student {
     public String toString() {
         return String.format("%-15s %-10s %-20s %10s", id, name, surname, dateOfBirth);
     }
+
 }

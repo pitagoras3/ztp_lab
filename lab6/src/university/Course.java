@@ -9,4 +9,8 @@ public class Course {
         this.name = name;
         this.ects = ects;
     }
+
+    public int getEcts() {
+        return ects;
+    }
 }
