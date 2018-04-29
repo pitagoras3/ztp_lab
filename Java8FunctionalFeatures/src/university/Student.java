@@ -10,6 +10,7 @@ public class Student {
     private Gender gender;
     private LocalDate dateOfBirth;
     private String id;
+    private Department department;
 
     public Student(String name, String surname, Gender gender, LocalDate dateOfBirth) {
         this.name = name;
@@ -25,6 +26,14 @@ public class Student {
         idGeneratorBuilder.append(dateOfBirth.format(DateTimeFormatter.ofPattern("YYMMDD")));
         idGeneratorBuilder.append(Math.abs((name + surname).hashCode()));
         return idGeneratorBuilder.toString();
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
     @Override
