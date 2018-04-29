@@ -39,13 +39,5 @@ public class Student {
     @Override
     public String toString() {
         return String.format("%20s, %20s %-30s %10s", id, name, surname, dateOfBirth);
-
-//        return "Student{" +
-//                "name='" + name + '\'' +
-//                ", surname='" + surname + '\'' +
-//                ", gender=" + gender +
-//                ", dateOfBirth=" + dateOfBirth +
-//                ", id='" + id + '\'' +
-//                '}';
     }
 }
