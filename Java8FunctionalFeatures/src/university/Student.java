@@ -25,7 +25,7 @@ public class Student {
         idGeneratorBuilder.append(gender.getGenderId());
         idGeneratorBuilder.append(dateOfBirth.format(DateTimeFormatter.ofPattern("YYMMDD")));
         idGeneratorBuilder.append(Math.abs((name + surname).hashCode()));
-        return idGeneratorBuilder.toString();
+        return idGeneratorBuilder.toString().substring(0, 12);
     }
 
     public void setDepartment(Department department) {
@@ -38,12 +38,14 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", gender=" + gender +
-                ", dateOfBirth=" + dateOfBirth +
-                ", id='" + id + '\'' +
-                '}';
+        return String.format("%20s, %20s %-30s %10s", id, name, surname, dateOfBirth);
+
+//        return "Student{" +
+//                "name='" + name + '\'' +
+//                ", surname='" + surname + '\'' +
+//                ", gender=" + gender +
+//                ", dateOfBirth=" + dateOfBirth +
+//                ", id='" + id + '\'' +
+//                '}';
     }
 }
