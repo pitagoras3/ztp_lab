@@ -6,10 +6,11 @@ import university.Gender;
 import university.Student;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.NoSuchElementException;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 public class Application {
 
@@ -46,12 +47,14 @@ public class Application {
         System.out.println("STUDENT WITH LEAST ECTS");
         printStudentsWithLeastEcts();
 
+        System.out.println("AVERAGE AGE");
+        printAverageStudentsAgeGroupedByGender();
+
     }
 
     private static void fillListsWithData(){
         fillStudentsList();
     }
-
 
     private static void fillStudentsList(){
 
@@ -127,6 +130,14 @@ public class Application {
                 .orElseThrow(NoSuchElementException::new);
 
         System.out.println(studentWithLeastEcts);
+    }
+
+    // Grouping by
+    private static void printAverageStudentsAgeGroupedByGender(){
+        Map<Gender, Double> averageStudentsAgeGroupedByGender = students.stream()
+                .collect(groupingBy(Student::getGender, Collectors.averagingInt(Student::getAge)));
+
+        System.out.println(averageStudentsAgeGroupedByGender.toString());
     }
 
 }
