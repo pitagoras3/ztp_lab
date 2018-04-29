@@ -1,5 +1,7 @@
 package application;
 
+
+import org.apache.commons.lang3.StringUtils;
 import university.Course;
 import university.Department;
 import university.Gender;
@@ -7,7 +9,6 @@ import university.Student;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
@@ -34,22 +35,22 @@ public class Application {
 
         fillStudentsList();
 
-        System.out.println("ALL STUDENTS");
+        printWrapper("ALL STUDENTS");
         printStudentsList();
 
-        System.out.println("IT STUDENTS");
+        printWrapper("IT STUDENTS");
         printItStudents();
 
-        System.out.println("DEPARTMENTS");
+        printWrapper("STUDENTS DEPARTMENTS");
         printNameOfDepartmentForAllStudents();
 
-        System.out.println("STUDENT WITH MOST COURSES");
+        printWrapper("STUDENT WITH MOST COURSES");
         printStudentsWithMostCourses();
 
-        System.out.println("STUDENT WITH LEAST ECTS");
+        printWrapper("STUDENT WITH LEAST ECTS");
         printStudentsWithLeastEcts();
 
-        System.out.println("AVERAGE AGE");
+        printWrapper("AVERAGE AGE");
         printAverageStudentsAgeGroupedByGender();
 
     }
@@ -100,25 +101,25 @@ public class Application {
     }
 
     private static void printWrapper(String title){
-        System.out.println("=================================");
-        System.out.println();
+        System.out.println("\n============================================================");
+        String centralizedTitle = StringUtils.center(title, 40);
+        System.out.printf("==========%s==========%n", centralizedTitle);
+        System.out.println("============================================================\n");
     }
 
-
-
-
     // Tasks
-
     // Filter
     private static void printItStudents(){
         students.stream()
                 .filter(student -> student.getDepartment().equals(itDepartment))
-                .forEach(student -> System.out.println(student));
+                .forEach(System.out::println);
     }
 
     // Map
     private static void printNameOfDepartmentForAllStudents(){
-        students.stream().map(Student::getDepartment).forEach(department -> System.out.println(department));
+        students.stream()
+                .map(Student::getDepartment)
+                .forEach(System.out::println);
     }
 
     // Min/max
@@ -143,7 +144,9 @@ public class Application {
         Map<Gender, Double> averageStudentsAgeGroupedByGender = students.stream()
                 .collect(groupingBy(Student::getGender, Collectors.averagingInt(Student::getAge)));
 
-        System.out.println(averageStudentsAgeGroupedByGender.toString());
+        averageStudentsAgeGroupedByGender.forEach((gender, average) -> {
+            System.out.printf("%-6s : %f%n", gender, average);
+        });
     }
 
 }

@@ -18,9 +18,6 @@ public class Department {
 
     @Override
     public String toString() {
-        return "Department{" +
-                "name='" + name + '\'' +
-                ", dateOfCreation=" + dateOfCreation +
-                '}';
+        return String.format("%3s, created in %d", name, dateOfCreation.getYear());
     }
 }
