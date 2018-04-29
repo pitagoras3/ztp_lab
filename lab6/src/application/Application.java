@@ -1,13 +1,15 @@
 package application;
 
+import university.Course;
 import university.Department;
 import university.Gender;
 import university.Student;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 public class Application {
 
@@ -16,6 +18,16 @@ public class Application {
     private static Department itDepartment = new Department("W8", LocalDate.of(1982, 2, 1));
     private static Department mechanicalDepartment = new Department("W11", LocalDate.of(1970, 6, 1));
     private static Department electronicsDepartment = new Department("W4", LocalDate.of(1991, 4, 3));
+
+    private static Course androidCourse =   new Course("Android", 2);
+    private static Course iosCourse     =   new Course("iOS", 2);
+    private static Course javaCourse    =   new Course("Java", 3);
+    private static Course pythonCourse    =   new Course("Python", 3);
+    private static Course mathCourse    =   new Course("Math", 6);
+    private static Course algebraCourse =   new Course("Algebra", 4);
+    private static Course enginesCourse =   new Course("Engines", 3);
+    private static Course englishCourse =   new Course("English", 2);
+    private static Course arduinoCourse =   new Course("Arduino", 3);
 
     public static void main(String[] args) {
 
@@ -27,6 +39,9 @@ public class Application {
 
         System.out.println("DEPARTMENTS");
         printNameOfDepartmentForAllStudents();
+
+        System.out.println("STUDENT WITH MOST COURSES");
+        printStudentsWithMostCourses();
 
     }
 
@@ -55,6 +70,16 @@ public class Application {
         studentTom.setDepartment(mechanicalDepartment);
         studentGeorge.setDepartment(electronicsDepartment);
 
+        studentAnna.addCourses(Arrays.asList(androidCourse, iosCourse, mathCourse));
+        studentSimon.addCourses(Arrays.asList(javaCourse, pythonCourse, mathCourse, algebraCourse, arduinoCourse));
+        studentMark.addCourses(Arrays.asList(enginesCourse, mathCourse, algebraCourse));
+        studentBob.addCourses(Arrays.asList(englishCourse));
+        studentFrank.addCourses(Arrays.asList(androidCourse, iosCourse));
+        studentSuzzie.addCourses(Arrays.asList(arduinoCourse));
+        studentTom.addCourses(Arrays.asList(enginesCourse));
+        studentGeorge.addCourses(Arrays.asList(arduinoCourse, englishCourse, mathCourse));
+
+
         students.add(studentAnna);
         students.add(studentSimon);
         students.add(studentMark);
@@ -70,17 +95,27 @@ public class Application {
         students.forEach(student -> System.out.println(student));
     }
 
-    //Tasks
+    // Tasks
+
+    // Filter
     private static void printItStudents(){
         students.stream()
                 .filter(student -> student.getDepartment().equals(itDepartment))
                 .forEach(student -> System.out.println(student));
     }
 
+    // Map
     private static void printNameOfDepartmentForAllStudents(){
         students.stream().map(Student::getDepartment).forEach(department -> System.out.println(department));
     }
 
+    // Min/max
+    private static void printStudentsWithMostCourses(){
+        Student studentWithMostCourses = students.stream()
+                .max(Comparator.comparingInt(o -> o.getCourses().size()))
+                .orElseThrow(NoSuchElementException::new);
 
+        System.out.println(studentWithMostCourses);
+    }
 
 }

@@ -15,4 +15,12 @@ public class Department {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "name='" + name + '\'' +
+                ", dateOfCreation=" + dateOfCreation +
+                '}';
+    }
 }
