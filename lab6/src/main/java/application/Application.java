@@ -147,6 +147,7 @@ public class Application {
         averageStudentsAgeGroupedByGender.forEach((gender, average) -> {
             System.out.printf("%-6s : %f%n", gender, average);
         });
+
     }
 
 }
