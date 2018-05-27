@@ -1,0 +1,4 @@
+create table Students{
+    int age;
+    String name;
+}
