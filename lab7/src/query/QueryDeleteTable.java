@@ -14,7 +14,14 @@ public class QueryDeleteTable implements Query {
 
     @Override
     public void buildMySQLQuery() {
+        if (isQueryValid()){
+            String tableName = queryParts.get(2);
 
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("DROP TABLE ");
+            stringBuilder.append(tableName);
+            mySQLQuery = stringBuilder.toString();
+        }
     }
 
     @Override
@@ -36,6 +43,6 @@ public class QueryDeleteTable implements Query {
 
     @Override
     public String getMySQLQuery() {
-        return null;
+        return mySQLQuery;
     }
 }

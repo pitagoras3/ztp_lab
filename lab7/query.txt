@@ -1,1 +1,5 @@
-delete table Students;
+create table Uczniowie {
+    int wiek;
+    String imie;
+    String nazwisko;
+}
