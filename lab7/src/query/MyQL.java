@@ -6,8 +6,12 @@ import java.util.List;
 public class MyQL {
 
     public static final String QUERY_TYPE_CREATE = "CREATE";
+    public static final String QUERY_TYPE_DELETE = "DELETE";
+
     public static final String QUERY_TYPE_ALTER = "ALTER";
     public static final String STRUCTURE_TYPE_TABLE = "TABLE";
+
+    // TODO change DATA_TYPES to Map containing Key - javaType, Value - MySQLType
     public static final ArrayList<String> DATA_TYPES;
 
     static {
@@ -26,8 +30,8 @@ public class MyQL {
             createTable.buildMySQLQuery();
             System.out.println(createTable.getMySQLQuery());
         }
-        else if (queryType.toUpperCase().equals(QUERY_TYPE_ALTER)){
-//            System.out.println("ALTER");
+        else if (queryType.toUpperCase().equals(QUERY_TYPE_DELETE)){
+            System.out.println(queryParts);
         }
         else {
             throw new ClassCastException(queryType + "is not a MyQL statement.");
