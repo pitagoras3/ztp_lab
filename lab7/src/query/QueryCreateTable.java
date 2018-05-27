@@ -14,6 +14,8 @@ public class QueryCreateTable implements Query {
 
     public QueryCreateTable(List<String> queryParts){
         this.queryParts = queryParts;
+
+        // TODO here creating query with size lower than 4 will fail with Exception
         this.queryBody = queryParts.subList(4, queryParts.size() - 1);
         mySQLQuery = "";
     }
@@ -41,8 +43,7 @@ public class QueryCreateTable implements Query {
 
     @Override
     public boolean isQueryValid() {
-        List<String> body = queryParts.subList(4, queryParts.size() - 1);
-        return validateCreateTableQuery() && validateBody(body);
+        return validateCreateTableQuery() && validateBody();
     }
 
     @Override
@@ -69,11 +70,11 @@ public class QueryCreateTable implements Query {
 
         return true;
     }
-    private static boolean validateBody(List<String> body){
+    private boolean validateBody(){
         List<List<String>> arguments = new ArrayList<>();
 
-        for (int i = 0; i < body.size(); i += 2){
-            arguments.add(Arrays.asList(body.get(i), body.get(i + 1)));
+        for (int i = 0; i < queryBody.size(); i += 2){
+            arguments.add(Arrays.asList(queryBody.get(i), queryBody.get(i + 1)));
         }
 
         for (List<String> argument : arguments){
