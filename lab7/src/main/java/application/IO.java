@@ -23,7 +23,7 @@ public class IO {
     }
 
     public List<String> getQueryFromFileAsStringList() {
-        try (Stream<String> stream = Files.lines(Paths.get(FILE_NAME))) {
+        try (Stream<String> stream = Files.lines(Paths.get("src/main/resources", FILE_NAME))) {
 
             return stream
                     .map(x -> x.replace("{", " {"))
