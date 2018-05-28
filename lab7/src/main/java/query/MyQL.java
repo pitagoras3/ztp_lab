@@ -1,6 +1,7 @@
 package query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class MyQL {
@@ -13,12 +14,17 @@ public class MyQL {
 
     // TODO change DATA_TYPES to Map containing Key - javaType, Value - MySQLType
     public static final ArrayList<String> DATA_TYPES;
+    public static final HashMap<String, String> SQL_DATA_TYPES;
 
     static {
         DATA_TYPES = new ArrayList<>();
         DATA_TYPES.add("int");
         DATA_TYPES.add("String");
         DATA_TYPES.add("Double");
+
+        SQL_DATA_TYPES = new HashMap<>();
+        SQL_DATA_TYPES.put("int", "int");
+        SQL_DATA_TYPES.put("String", "varchar(255)");
     }
 
     public static MyQL castStringListToMyQL(List<String> queryParts){

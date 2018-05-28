@@ -14,16 +14,20 @@ import java.util.stream.Stream;
 
 public class IO {
 
-    public static final String FILE_NAME = "query.txt";
-
+    private String path;
+    private String fileName;
     private Scanner scanner;
 
-    public IO(){
+    public IO(String path, String fileName)
+    {
+        this.path = path;
+        this.fileName = fileName;
+
         this.scanner = new Scanner(System.in);
     }
 
     public List<String> getQueryFromFileAsStringList() {
-        try (Stream<String> stream = Files.lines(Paths.get("src/main/resources", FILE_NAME))) {
+        try (Stream<String> stream = Files.lines(Paths.get(path, fileName))) {
 
             return stream
                     .map(x -> x.replace("{", " {"))

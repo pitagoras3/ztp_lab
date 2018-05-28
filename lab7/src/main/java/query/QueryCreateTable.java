@@ -78,7 +78,7 @@ public class QueryCreateTable implements Query {
         }
 
         for (List<String> argument : arguments){
-            if (!MyQL.DATA_TYPES.contains(argument.get(0))){
+            if (!MyQL.SQL_DATA_TYPES.keySet().contains(argument.get(0))){
                 return false;
             }
             if (argument.get(1).charAt(argument.get(1).length() - 1) != ';'){
@@ -101,7 +101,7 @@ public class QueryCreateTable implements Query {
 
         // Revert order: From int age; to age int,
         for (List<String> argument : arguments){
-            String type = argument.get(0);
+            String type = MyQL.SQL_DATA_TYPES.get(argument.get(0));
             String name = argument.get(1);
 
             name = "\t" + name + " ";
