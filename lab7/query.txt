@@ -1,5 +1,3 @@
-alter table Students{
-    delete wiek;
-    delete wzrost;
-    add int wzrost;
+create table Uczniowie {
+
 }
