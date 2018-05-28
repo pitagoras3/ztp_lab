@@ -1,5 +1,5 @@
-create table Uczniowie {
-    int wiek;
-    String imie;
-    String nazwisko;
+alter table Students{
+    delete wiek;
+    delete wzrost;
+    add int wzrost;
 }

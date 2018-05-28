@@ -21,18 +21,7 @@ public class QueryAlterTable implements Query {
     @Override
     public void buildMySQLQuery() {
         if (isQueryValid()){
-            String tableName = queryParts.get(2);
-
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("ALTER TABLE ");
-            stringBuilder.append(tableName);
-            stringBuilder.append("\n");
-
-//            List<String> bodyArgumentList = transformBodyToMySQL();
-//            stringBuilder.append(transformListToString(bodyArgumentList));
-            stringBuilder.append("\n);");
-
-            mySQLQuery = stringBuilder.toString();
+            mySQLQuery = transformBodyToMySQL();
         }
     }
 
@@ -40,6 +29,8 @@ public class QueryAlterTable implements Query {
     public boolean isQueryValid() {
         return validateAlterTableQuery() && validateBody();
     }
+
+    // Validation
 
     private boolean validateAlterTableQuery(){
         if (!queryParts.get(0).toUpperCase().equals(MyQL.QUERY_TYPE_ALTER)){
@@ -65,16 +56,16 @@ public class QueryAlterTable implements Query {
         while(counter < queryBody.size()){
             if (queryBody.get(counter).toUpperCase().equals("ADD")){
 
-                counter += 2;
-                if(counter >= queryBody.size() || queryBody.get(counter).charAt(queryBody.get(counter).length() - 1) != ';'){
+                if(counter + 2 >= queryBody.size() || queryBody.get(counter + 2).charAt(queryBody.get(counter + 2).length() - 1) != ';'){
                     return false;
                 }
+                counter += 3;
             }
             else if (queryBody.get(counter).toUpperCase().equals("DELETE")){
-                counter ++;
-                if(counter >= queryBody.size() || queryBody.get(counter).charAt(queryBody.get(counter).length() - 1) != ';'){
+                if(counter + 1 >= queryBody.size() || queryBody.get(counter + 1).charAt(queryBody.get(counter + 1).length() - 1) != ';'){
                     return false;
                 }
+                counter +=2;
             }
             else{
                 return false;
@@ -84,10 +75,56 @@ public class QueryAlterTable implements Query {
         return true;
     }
 
+    // Transformation
 
+    private String transformBodyToMySQL(){
+
+        List<List<String>> argumentsToAdd = new ArrayList<>();
+        List<String> argumentsToDelete = new ArrayList<>();
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int counter = 0;
+
+        while(counter < queryBody.size()){
+            if (queryBody.get(counter).toUpperCase().equals("ADD")){
+                List<String> argumentToAdd = Arrays.asList(queryBody.get(counter + 2).replace(";", ""), queryBody.get(counter + 1) + ";");
+                argumentsToAdd.add(argumentToAdd);
+                counter += 3;
+            }
+            else if (queryBody.get(counter).toUpperCase().equals("DELETE")){
+                String argumentToDelete = queryBody.get(counter + 1);
+                counter += 2;
+                argumentsToDelete.add(argumentToDelete);
+            }
+        }
+
+        argumentsToDelete.forEach(argument -> {
+            stringBuilder.append("ALTER TABLE ");
+            stringBuilder.append(queryParts.get(2));
+            stringBuilder.append("\n");
+            stringBuilder.append("DROP COLUMN ");
+            stringBuilder.append(argument);
+            stringBuilder.append("\n\n");
+        });
+
+        argumentsToAdd.forEach(argument -> {
+            stringBuilder.append("ALTER TABLE ");
+            stringBuilder.append(queryParts.get(2));
+            stringBuilder.append("\n");
+            stringBuilder.append("ADD ");
+            stringBuilder.append(argument.get(0));
+            stringBuilder.append(" ");
+            stringBuilder.append(argument.get(1));
+            stringBuilder.append("\n\n");
+        });
+
+
+        return stringBuilder.toString();
+    }
 
     @Override
     public String getMySQLQuery() {
-        return null;
+        return mySQLQuery;
     }
 }

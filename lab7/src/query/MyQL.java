@@ -30,10 +30,10 @@ public class MyQL {
             createTable.buildMySQLQuery();
             System.out.println(createTable.getMySQLQuery());
         }
-        else if (queryType.toUpperCase().equals(QUERY_TYPE_DELETE)){
-            QueryDeleteTable deleteTable = new QueryDeleteTable(queryParts);
-            deleteTable.buildMySQLQuery();
-            System.out.println(deleteTable.getMySQLQuery());
+        else if (queryType.toUpperCase().equals(QUERY_TYPE_ALTER)){
+            QueryAlterTable alterTable = new QueryAlterTable(queryParts);
+            alterTable.buildMySQLQuery();
+            System.out.println(alterTable.getMySQLQuery());
         }
         else {
             throw new ClassCastException(queryType + "is not a MyQL statement.");
