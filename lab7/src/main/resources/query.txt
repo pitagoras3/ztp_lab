@@ -1,1 +1,4 @@
-set pk on TABLE_NAME as COLUMN_NAME;
+create table Students{
+    inr age;
+    String name;
+}

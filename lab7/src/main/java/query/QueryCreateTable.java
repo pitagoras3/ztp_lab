@@ -14,30 +14,33 @@ public class QueryCreateTable implements Query {
 
     public QueryCreateTable(List<String> queryParts){
         this.queryParts = queryParts;
-
-        // TODO here creating query with size lower than 4 will fail with Exception
         this.queryBody = queryParts.subList(4, queryParts.size() - 1);
         this.mySQLQuery = "";
     }
 
     @Override
     public void buildMySQLQuery() {
-
-        // Validate query, if ok - create, if not - return message
-
         if (isQueryValid()){
             String tableName = queryParts.get(2);
+            List<String> bodyArgumentList = transformBodyToMySQL();
 
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.append("CREATE TABLE ");
             stringBuilder.append(tableName);
-            stringBuilder.append(" (\n");
+            stringBuilder.append(" (");
 
-            List<String> bodyArgumentList = transformBodyToMySQL();
-            stringBuilder.append(transformListToString(bodyArgumentList));
-            stringBuilder.append("\n);");
+            if (!bodyArgumentList.isEmpty()){
+                stringBuilder.append("\n");
+                stringBuilder.append(transformListToString(bodyArgumentList));
+                stringBuilder.append("\n");
+            }
+            stringBuilder.append(");");
 
             mySQLQuery = stringBuilder.toString();
+        }
+
+        else {
+            throw new IllegalArgumentException("Couldn't parse " + queryParts.toString() +" to CREATE TABLE query.");
         }
     }
 
@@ -97,6 +100,10 @@ public class QueryCreateTable implements Query {
 
         for (int i = 0; i < queryBody.size(); i += 2){
             arguments.add(new LinkedList<>(Arrays.asList(queryBody.get(i), queryBody.get(i + 1).replace(";", ""))));
+        }
+
+        if (arguments.isEmpty()){
+            return new ArrayList<>();
         }
 
         // Revert order: From int age; to age int,
