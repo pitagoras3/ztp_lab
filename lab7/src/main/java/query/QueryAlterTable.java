@@ -56,7 +56,8 @@ public class QueryAlterTable implements Query {
         while(counter < queryBody.size()){
             if (queryBody.get(counter).toUpperCase().equals("ADD")){
 
-                if(counter + 2 >= queryBody.size() || queryBody.get(counter + 2).charAt(queryBody.get(counter + 2).length() - 1) != ';'){
+                // TODO xDDDDD correct that stuff.
+                if(counter + 2 >= queryBody.size() || MyQL.SQL_DATA_TYPES.keySet().contains(queryBody.get(counter + 1)) && queryBody.get(counter + 2).charAt(queryBody.get(counter + 2).length() - 1) != ';'){
                     return false;
                 }
                 counter += 3;
@@ -88,7 +89,7 @@ public class QueryAlterTable implements Query {
 
         while(counter < queryBody.size()){
             if (queryBody.get(counter).toUpperCase().equals("ADD")){
-                List<String> argumentToAdd = Arrays.asList(queryBody.get(counter + 2).replace(";", ""), queryBody.get(counter + 1) + ";");
+                List<String> argumentToAdd = Arrays.asList(queryBody.get(counter + 2).replace(";", ""), MyQL.SQL_DATA_TYPES.get(queryBody.get(counter + 1)) + ";");
                 argumentsToAdd.add(argumentToAdd);
                 counter += 3;
             }

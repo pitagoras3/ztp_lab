@@ -12,6 +12,8 @@ public class MyQL {
     public static final String QUERY_TYPE_ALTER = "ALTER";
     public static final String STRUCTURE_TYPE_TABLE = "TABLE";
 
+    public static final String QUERY_TYPE_SET_PK = "SET";
+
     // TODO change DATA_TYPES to Map containing Key - javaType, Value - MySQLType
     public static final ArrayList<String> DATA_TYPES;
     public static final HashMap<String, String> SQL_DATA_TYPES;
@@ -40,6 +42,11 @@ public class MyQL {
             QueryAlterTable alterTable = new QueryAlterTable(queryParts);
             alterTable.buildMySQLQuery();
             System.out.println(alterTable.getMySQLQuery());
+        }
+        else if (queryType.toUpperCase().equals(QUERY_TYPE_SET_PK)){
+            QuerySetPrimaryKey setPrimaryKey = new QuerySetPrimaryKey(queryParts);
+            setPrimaryKey.buildMySQLQuery();
+            System.out.println(setPrimaryKey.getMySQLQuery());
         }
         else {
             throw new ClassCastException(queryType + "is not a MyQL statement.");

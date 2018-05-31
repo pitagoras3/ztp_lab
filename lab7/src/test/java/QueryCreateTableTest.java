@@ -1,9 +1,6 @@
 import application.IO;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import query.QueryCreateTable;
-
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,9 +23,16 @@ public class QueryCreateTableTest {
         assertEquals(createTable.getMySQLQuery(), expectedResult);
     }
 
-    @Test
+    // TODO specify Exception class
+    @Test(expected = Exception.class)
     public void createEmptyTableTest(){
-//        List<String> queryParts =
-//        QueryCreateTable createTable = new QueryCreateTable();
+        io = new IO(TEST_FILE_PATH, "createEmptyTable.txt");
+        QueryCreateTable createTable = new QueryCreateTable(io.getQueryFromFileAsStringList());
+        createTable.buildMySQLQuery();
+    }
+
+    @Test
+    public void createTableWithUnknownArgumentTest(){
+
     }
 }

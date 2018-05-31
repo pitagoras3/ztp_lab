@@ -17,7 +17,7 @@ public class QueryCreateTable implements Query {
 
         // TODO here creating query with size lower than 4 will fail with Exception
         this.queryBody = queryParts.subList(4, queryParts.size() - 1);
-        mySQLQuery = "";
+        this.mySQLQuery = "";
     }
 
     @Override
