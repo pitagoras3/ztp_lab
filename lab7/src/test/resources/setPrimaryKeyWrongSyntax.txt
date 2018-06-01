@@ -1,1 +1,1 @@
-set pk on Students on surname;
+set pk on Students at surname;

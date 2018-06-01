@@ -24,7 +24,7 @@ public class QuerySetPrimaryKeyTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void setPrimaryKeyWrongSyntaxTest(){
-        io = new IO(TEST_FILE_PATH, "setPrimaryKeyCorrectly.txt");
+        io = new IO(TEST_FILE_PATH, "setPrimaryKeyWrongSyntax.txt");
         MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
     }
 

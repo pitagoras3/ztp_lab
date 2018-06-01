@@ -1,1 +1,1 @@
-set pk on Students as age;
+set pk on Students on age;

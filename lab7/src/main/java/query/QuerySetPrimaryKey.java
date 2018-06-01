@@ -51,7 +51,7 @@ public class QuerySetPrimaryKey implements Query {
         if (!queryParts.get(2).toUpperCase().equals("ON")){
             return false;
         }
-        if (!queryParts.get(4).toUpperCase().equals("AS")){
+        if (!queryParts.get(4).toUpperCase().equals("ON")){
             return false;
         }
         if (queryParts.get(5).charAt(queryParts.get(5).length() - 1) != ';'){
