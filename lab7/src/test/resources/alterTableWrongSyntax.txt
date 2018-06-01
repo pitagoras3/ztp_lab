@@ -1,0 +1,4 @@
+altter tabke Studentss{
+     add int age;
+     delere age;
+ }

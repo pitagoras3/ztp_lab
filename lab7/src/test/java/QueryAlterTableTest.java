@@ -1,5 +1,6 @@
 import application.IO;
 import org.junit.Test;
+import query.MyQL;
 import query.QueryAlterTable;
 
 import java.util.NoSuchElementException;
@@ -15,8 +16,8 @@ public class QueryAlterTableTest {
     @Test
     public void alterTableCorrectlyTest(){
         io = new IO(TEST_FILE_PATH, "alterTableCorrectly.txt");
-        QueryAlterTable alterTable = new QueryAlterTable(io.getQueryFromFileAsStringList());
-        alterTable.buildMySQLQuery();
+        String result = MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
+
 
         String expectedResult = "ALTER TABLE Students\n" +
                 "DROP COLUMN name;\n" +
@@ -27,35 +28,18 @@ public class QueryAlterTableTest {
                 "ALTER TABLE Students\n" +
                 "ADD surname varchar(255);";
 
-        assertEquals(alterTable.getMySQLQuery(), expectedResult);
+        assertEquals(result, expectedResult);
     }
 
     @Test(expected = NoSuchElementException.class)
     public void alterTableEmptyBody(){
         io = new IO(TEST_FILE_PATH, "alterTableEmptyBody.txt");
-        QueryAlterTable alterTable = new QueryAlterTable(io.getQueryFromFileAsStringList());
-        alterTable.buildMySQLQuery();
+        MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
     }
-//    @Test
-//    public void createEmptyTableTest(){
-//        io = new IO(TEST_FILE_PATH, "createEmptyTable.txt");
-//        QueryCreateTable createTable = new QueryCreateTable(io.getQueryFromFileAsStringList());
-//        createTable.buildMySQLQuery();
-//        String expectedResult = "CREATE TABLE Students ();";
-//        assertEquals(createTable.getMySQLQuery(), expectedResult);
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void createTableWithUnknownArgumentTest(){
-//        io = new IO(TEST_FILE_PATH, "createTableUnknownArgument.txt");
-//        QueryCreateTable createTable = new QueryCreateTable(io.getQueryFromFileAsStringList());
-//        createTable.buildMySQLQuery();
-//    }
-//
-//    @Test(expected = IllegalArgumentException.class)
-//    public void createTableWrongSyntaxTest(){
-//        io = new IO(TEST_FILE_PATH, "createTableWrongSyntax.txt");
-//        QueryCreateTable createTable = new QueryCreateTable(io.getQueryFromFileAsStringList());
-//        createTable.buildMySQLQuery();
-//    }
+
+    @Test(expected = ClassCastException.class)
+    public void alterTableWrongSyntax(){
+        io = new IO(TEST_FILE_PATH, "alterTableWrongSyntax.txt");
+        MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
+    }
 }

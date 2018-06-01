@@ -18,7 +18,8 @@ public class Application {
         while (true){
             System.out.println(INPUT_MESSAGE);
             io.getUserSignal();
-            MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
+            String myQLquery = MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
+            System.out.println(myQLquery);
         }
     }
 

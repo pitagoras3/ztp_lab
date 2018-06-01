@@ -29,29 +29,27 @@ public class MyQL {
         SQL_DATA_TYPES.put("String", "varchar(255)");
     }
 
-    public static MyQL castStringListToMyQL(List<String> queryParts){
+    public static String castStringListToMyQL(List<String> queryParts){
 
         String queryType = queryParts.get(0);
 
         if (queryType.toUpperCase().equals(QUERY_TYPE_CREATE)) {
             QueryCreateTable createTable = new QueryCreateTable(queryParts);
             createTable.buildMySQLQuery();
-            System.out.println(createTable.getMySQLQuery());
+            return createTable.getMySQLQuery();
         }
         else if (queryType.toUpperCase().equals(QUERY_TYPE_ALTER)){
             QueryAlterTable alterTable = new QueryAlterTable(queryParts);
             alterTable.buildMySQLQuery();
-            System.out.println(alterTable.getMySQLQuery());
+            return alterTable.getMySQLQuery();
         }
         else if (queryType.toUpperCase().equals(QUERY_TYPE_SET_PK)){
             QuerySetPrimaryKey setPrimaryKey = new QuerySetPrimaryKey(queryParts);
             setPrimaryKey.buildMySQLQuery();
-            System.out.println(setPrimaryKey.getMySQLQuery());
+            return setPrimaryKey.getMySQLQuery();
         }
         else {
             throw new ClassCastException(queryType + "is not a MyQL statement.");
         }
-
-        return null;
     }
 }
