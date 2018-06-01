@@ -1,7 +1,6 @@
 import application.IO;
 import org.junit.Test;
 import query.MyQL;
-import query.QueryCreateTable;
 
 import static org.junit.Assert.assertEquals;
 
