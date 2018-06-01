@@ -3,6 +3,7 @@ package query;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class QueryAlterTable implements Query {
 
@@ -73,6 +74,10 @@ public class QueryAlterTable implements Query {
             }
         }
 
+        if (counter == 0){
+            throw new NoSuchElementException("Didn't found any field to add / delete in query.");
+        }
+
         return true;
     }
 
@@ -120,7 +125,7 @@ public class QueryAlterTable implements Query {
             stringBuilder.append("\n\n");
         });
 
-        stringBuilder.setLength(stringBuilder.length() - 2);
+//        stringBuilder.setLength(stringBuilder.length() - 2);
         return stringBuilder.toString();
     }
 

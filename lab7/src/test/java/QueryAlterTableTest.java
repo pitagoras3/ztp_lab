@@ -2,6 +2,8 @@ import application.IO;
 import org.junit.Test;
 import query.QueryAlterTable;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.Assert.assertEquals;
 
 public class QueryAlterTableTest {
@@ -13,8 +15,8 @@ public class QueryAlterTableTest {
     @Test
     public void alterTableCorrectlyTest(){
         io = new IO(TEST_FILE_PATH, "alterTableCorrectly.txt");
-        QueryAlterTable alterT = new QueryAlterTable(io.getQueryFromFileAsStringList());
-        alterT.buildMySQLQuery();
+        QueryAlterTable alterTable = new QueryAlterTable(io.getQueryFromFileAsStringList());
+        alterTable.buildMySQLQuery();
 
         String expectedResult = "ALTER TABLE Students\n" +
                 "DROP COLUMN name;\n" +
@@ -25,9 +27,15 @@ public class QueryAlterTableTest {
                 "ALTER TABLE Students\n" +
                 "ADD surname varchar(255);";
 
-        assertEquals(alterT.getMySQLQuery(), expectedResult);
+        assertEquals(alterTable.getMySQLQuery(), expectedResult);
     }
 
+    @Test(expected = NoSuchElementException.class)
+    public void alterTableEmptyBody(){
+        io = new IO(TEST_FILE_PATH, "alterTableEmptyBody.txt");
+        QueryAlterTable alterTable = new QueryAlterTable(io.getQueryFromFileAsStringList());
+        alterTable.buildMySQLQuery();
+    }
 //    @Test
 //    public void createEmptyTableTest(){
 //        io = new IO(TEST_FILE_PATH, "createEmptyTable.txt");
