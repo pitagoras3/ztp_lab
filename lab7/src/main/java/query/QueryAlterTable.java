@@ -120,7 +120,7 @@ public class QueryAlterTable implements Query {
             stringBuilder.append("\n\n");
         });
 
-
+        stringBuilder.setLength(stringBuilder.length() - 2);
         return stringBuilder.toString();
     }
 

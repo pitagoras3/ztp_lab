@@ -7,9 +7,6 @@ import static org.junit.Assert.assertEquals;
 public class QueryCreateTableTest {
 
     public static final String TEST_FILE_PATH = "src/test/resources";
-    public static final String TEST_FILE_CREATE_CORRECT_TABLE = "";
-    public static final String TEST_FILE_CREATE_EMPTY_TABLE = "";
-    public static final String TEST_FILE_CREATE_TABLE_UNKNOWN_ARGUMENT = "";
 
     private IO io;
 
