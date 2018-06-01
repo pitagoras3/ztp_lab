@@ -24,6 +24,9 @@ public class QueryAlterTable implements Query {
         if (isQueryValid()){
             mySQLQuery = transformBodyToMySQL();
         }
+        else {
+            throw new IllegalArgumentException("Couldn't parse " + queryParts.toString() +" to ALTER TABLE query.");
+        }
     }
 
     @Override

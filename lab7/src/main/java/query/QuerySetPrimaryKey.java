@@ -33,7 +33,7 @@ public class QuerySetPrimaryKey implements Query {
             mySQLQuery = stringBuilder.toString();
         }
         else {
-            System.out.println("query not valid.");
+            throw new IllegalArgumentException("Couldn't parse " + queryParts.toString() +" to SET PRIMARY KEY query.");
         }
     }
 
