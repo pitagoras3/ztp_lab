@@ -100,3 +100,8 @@ A następnie do wykonania pozostały 4 zadania:
 - Mapowanie kolekcji,
 - Wyciągnięcie wartości minimalnej / maksymalnej z kolekcji,
 - Grupowanie obiektów klasy według pewnej cechy.
+
+## [lab7] MySQLParser
+
+W zadaniu 7 nalezalo zaimplementować program słuzący do parsowania własnego języka zapytań na MySQL. Dodatkowo, nalezało zastosować 2 strategie obsługi wyjątków.
+

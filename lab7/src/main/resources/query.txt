@@ -1,1 +1,4 @@
-set pk on Students on surname;
+create table Students{
+    int age;
+    String name;
+}

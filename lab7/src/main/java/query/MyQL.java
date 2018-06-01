@@ -14,7 +14,6 @@ public class MyQL {
 
     public static final String QUERY_TYPE_SET_PK = "SET";
 
-    // TODO change DATA_TYPES to Map containing Key - javaType, Value - MySQLType
     public static final ArrayList<String> DATA_TYPES;
     public static final HashMap<String, String> SQL_DATA_TYPES;
 
@@ -37,6 +36,11 @@ public class MyQL {
             QueryCreateTable createTable = new QueryCreateTable(queryParts);
             createTable.buildMySQLQuery();
             return createTable.getMySQLQuery();
+        }
+        else if (queryType.toUpperCase().equals(QUERY_TYPE_DELETE)){
+            QueryDeleteTable deleteTable = new QueryDeleteTable(queryParts);
+            deleteTable.buildMySQLQuery();
+            return deleteTable.getMySQLQuery();
         }
         else if (queryType.toUpperCase().equals(QUERY_TYPE_ALTER)){
             QueryAlterTable alterTable = new QueryAlterTable(queryParts);
