@@ -1,1 +1,3 @@
-adkjhakjsdhkahskd
+create table Students{
+    wiek;
+}

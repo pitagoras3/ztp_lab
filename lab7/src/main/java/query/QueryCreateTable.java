@@ -46,7 +46,14 @@ public class QueryCreateTable implements Query {
 
     @Override
     public boolean isQueryValid() {
-        return validateCreateTableQuery() && validateBody();
+        try{
+            return validateCreateTableQuery() && validateBody();
+        }
+        catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+
+        return false;
     }
 
     @Override
@@ -73,23 +80,29 @@ public class QueryCreateTable implements Query {
 
         return true;
     }
-    private boolean validateBody(){
+    private boolean validateBody() throws IllegalArgumentException{
         List<List<String>> arguments = new ArrayList<>();
 
-        for (int i = 0; i < queryBody.size(); i += 2){
-            arguments.add(Arrays.asList(queryBody.get(i), queryBody.get(i + 1)));
-        }
+        try{
 
-        for (List<String> argument : arguments){
-            if (!MyQL.SQL_DATA_TYPES.keySet().contains(argument.get(0))){
-                return false;
+            for (int i = 0; i < queryBody.size(); i += 2){
+                arguments.add(Arrays.asList(queryBody.get(i), queryBody.get(i + 1)));
             }
-            if (argument.get(1).charAt(argument.get(1).length() - 1) != ';'){
-                return false;
-            }
-        }
 
-        return true;
+            for (List<String> argument : arguments){
+                if (!MyQL.SQL_DATA_TYPES.keySet().contains(argument.get(0))){
+                    return false;
+                }
+                if (argument.get(1).charAt(argument.get(1).length() - 1) != ';'){
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        catch (IndexOutOfBoundsException e){
+            throw new IllegalArgumentException("Line in body has odd amount of arguments.");
+        }
     }
 
     // Transform body
