@@ -11,22 +11,21 @@ public class Application {
             "Click enter to convert MyQL to MySQL." +
             "\n========================================";
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         IO io = new IO(FILE_PATH, FILE_NAME);
 
-        while (true){
+        while (true) {
             System.out.println(INPUT_MESSAGE);
             io.getUserSignal();
-            String myQLquery = MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
-            System.out.println(myQLquery);
-        }
-    }
 
-    private static void showMenu(){
-        System.out.println("Available operations and syntax:");
-        System.out.println("================================");
-        System.out.println("Create new table: create table_name");
-        System.out.println("================================");
+            try {
+                String myQLquery = MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
+                System.out.println(myQLquery);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
     }
 }

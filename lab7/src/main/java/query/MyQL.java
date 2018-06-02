@@ -28,7 +28,11 @@ public class MyQL {
         SQL_DATA_TYPES.put("String", "varchar(255)");
     }
 
-    public static String castStringListToMyQL(List<String> queryParts){
+    public static String castStringListToMyQL(List<String> queryParts) {
+
+        if (queryParts == null || queryParts.size() == 0){
+            throw new IllegalArgumentException("Query parts empty.");
+        }
 
         String queryType = queryParts.get(0);
 

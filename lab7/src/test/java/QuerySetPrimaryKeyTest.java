@@ -6,9 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class QuerySetPrimaryKeyTest {
 
-
     public static final String TEST_FILE_PATH = "src/test/resources";
-
     private IO io;
 
     @Test
@@ -27,5 +25,4 @@ public class QuerySetPrimaryKeyTest {
         io = new IO(TEST_FILE_PATH, "setPrimaryKeyWrongSyntax.txt");
         MyQL.castStringListToMyQL(io.getQueryFromFileAsStringList());
     }
-
 }
