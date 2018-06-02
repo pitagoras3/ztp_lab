@@ -103,5 +103,125 @@ A następnie do wykonania pozostały 4 zadania:
 
 ## [lab7] MySQLParser
 
-W zadaniu 7 nalezalo zaimplementować program słuzący do parsowania własnego języka zapytań na MySQL. Dodatkowo, nalezało zastosować 2 strategie obsługi wyjątków.
+W zadaniu 7 nalezalo zaimplementować program słuzący do parsowania własnego języka zapytań na MySQL. Do zaimplementowania mieliśmy następujące funkcje:
+- Dodanie / Usunięcie tabeli,
+- Dodanie / Usunięcie pola określonego typu,
+- Ustawianie klucza głównego (mógł być prosty).
 
+Dodatkowo, nalezało zastosować 2 strategie obsługi wyjątków.
+
+Składnia mojego języka zapytań __MyQL__
+
+### Dodanie tabeli
+```
+create table Students{
+    int age;
+    String name;
+}
+```
+```SQL
+CREATE TABLE Students (
+	age int,
+	name varchar(255)
+);
+```
+
+### Usunięcie tabeli
+```
+delete table Students;
+```
+```SQL
+DROP TABLE Students;
+```
+
+### Dodanie / Usunięcie pola określonego typu
+```
+alter table Students{
+    add int age;
+    add String surname;
+    delete name;
+}
+```
+```SQL
+ALTER TABLE Students
+DROP COLUMN name;
+
+ALTER TABLE Students
+ADD age int;
+
+ALTER TABLE Students
+ADD surname varchar(255);
+```
+
+### Ustawienie klucza głównego
+```
+set pk on Students as ID;
+```
+```SQL
+ALTER TABLE Students
+ADD PRIMARY KEY (ID);
+```
+
+Zastosowałem 2 strategie obsługi wyjątków:
+- Przerwanie aplikacji spowodowane błędem walidacji,
+- Niedokonanie parsowania i logowanie błędu (powiadomienie uzytkownika).
+
+### Notacja BNF MyQL
+
+```BNF
+<lowercaseLetter> ::= 'a'|'b'|'c'|'d'|'e'|'f'|'g'|'h'|'i'|'j'|'k'|'l'|'m'|'n'|'o'|'p'|'r'|'s'|'t'|'u'|'w'|'x'|'y'|'z'
+
+<uppercaseLetter> ::= 'A'|'B'|'C'|'D'|'E'|'F'|'G'|'H'|'I'|'J'|'K'|'L'|'M'|'N'|'O'|'P'|'R'|'S'|'T'|'U'|'W'|'X'|'Y'|'Z'
+
+<openingBracket> ::= '{'
+
+<closingBracket> ::= '}'
+
+<semicolon> ::= ';'
+
+<space> ::= ' '
+
+<createWord> ::= 'create'
+
+<alterWord> ::= 'alter'
+
+<tableWord> ::= 'table'
+
+<addWord> ::= 'add'
+
+<deleteWord> ::= 'delete'
+
+<setWord> ::= 'set'
+
+<pkWord> ::= 'pk'
+
+<onWord> ::= 'on'
+
+<tableName> ::= <upperCase> | <lowerCase> | <tableName> <upperCase> | <tableName> <lowercase> 
+
+<objectType> ::= 'String'|'int'
+
+<objectName> ::= <upperCase> | <lowerCase> | <objectName> <upperCase> | <tableName> <lowercase>
+
+<query> ::= <createTableQuery> | <alterTableQuery> | <deleteTableQuery> | <setPKQuery>
+
+<createTableQuery> ::= <createTableHeader> <space> <tableName> <openingBracket> <createTableBody> <closingBracket>
+
+<createTableHeader> ::= <createWord> <space> <tableWord>
+
+<createTableBody> ::= <createTableBodyLine> | <createTableBody> <createTableBodyLine> 
+
+<createTableBodyLine> ::= <objectType> <space> <objectName> <semicolon> 
+
+<alterTableQuery> ::= <alterTableHeader> <space> <tableName> <openingBracket> <alterTableBody> <closingBracket>
+
+<alterTableHeader> ::= <alterWord> <space> <tableWord>
+
+<alterTableBody> ::= <alterTableBodyLine> | <alterTableBody> <alterTableBodyLine>
+
+<alterTableBodyLine> ::= <addWord> <space> <objectType> <space> <objectName> <semicolon> | <deleteWord> <space> <objectName> <semicolon>
+
+<deleteTableQuery> ::= <deleteWord> <space> <tableName> <semicolon>
+
+<setPKQuery> ::= <setWord> <space> <pkWord> <space> <onWord> <space> <tableName> <space> <onWord> <space> <objectName> <semicolon>
+```
