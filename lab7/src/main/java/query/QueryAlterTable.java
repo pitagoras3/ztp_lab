@@ -43,6 +43,9 @@ public class QueryAlterTable implements Query {
         if (!queryParts.get(1).toUpperCase().equals(MyQL.STRUCTURE_TYPE_TABLE)){
             return false;
         }
+        if (!validateTableName(queryParts.get(2))){
+            return false;
+        }
         if (!queryParts.get(3).equals("{")){
             return false;
         }
@@ -56,11 +59,9 @@ public class QueryAlterTable implements Query {
     private boolean validateBody(){
         int counter = 0;
 
-        // TODO extract ADD / DELETE to MyQL class.
         while(counter < queryBody.size()){
             if (queryBody.get(counter).toUpperCase().equals("ADD")){
 
-                // TODO xDDDDD correct that stuff.
                 if(counter + 2 >= queryBody.size() || MyQL.SQL_DATA_TYPES.keySet().contains(queryBody.get(counter + 1)) && queryBody.get(counter + 2).charAt(queryBody.get(counter + 2).length() - 1) != ';'){
                     return false;
                 }
@@ -137,5 +138,12 @@ public class QueryAlterTable implements Query {
     @Override
     public String getMySQLQuery() {
         return mySQLQuery;
+    }
+
+    private boolean validateTableName(String tableName){
+        if (tableName.matches("[a-zA-Z][a-zA-Z0-9]*")){
+            return true;
+        }
+        else throw new IllegalArgumentException(tableName + "is not correct table name.");
     }
 }

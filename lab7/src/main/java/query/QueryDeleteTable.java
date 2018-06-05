@@ -40,6 +40,9 @@ public class QueryDeleteTable implements Query{
         if (queryParts.get(2).charAt(queryParts.get(2).length()) != ';'){
             return false;
         }
+        if (!validateTableName(queryParts.get(2).replace(";", ""))){
+            return false;
+        }
 
         return true;
     }
@@ -48,4 +51,12 @@ public class QueryDeleteTable implements Query{
     public String getMySQLQuery() {
         return mySQLQuery;
     }
+
+    private boolean validateTableName(String tableName){
+        if (tableName.matches("[a-zA-Z][a-zA-Z0-9]*")){
+            return true;
+        }
+        else throw new IllegalArgumentException(tableName + "is not correct table name.");
+    }
+
 }

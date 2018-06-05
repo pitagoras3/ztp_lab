@@ -1,3 +1,4 @@
-create table Students{
-    wiek;
+create    table Studen%t%%s{
+                 int age;
+        String name;
 }

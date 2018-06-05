@@ -14,7 +14,8 @@ public class QueryCreateTable implements Query {
 
     public QueryCreateTable(List<String> queryParts){
         this.queryParts = queryParts;
-        this.queryBody = queryParts.subList(4, queryParts.size() - 1);
+
+        this.queryBody = new ArrayList<>();
         this.mySQLQuery = "";
     }
 
@@ -47,7 +48,7 @@ public class QueryCreateTable implements Query {
     @Override
     public boolean isQueryValid() {
         try{
-            return validateCreateTableQuery() && validateBody();
+            return validateCreateTableQuery() && validateTableName(queryParts.get(2)) && validateBody();
         }
         catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
@@ -65,6 +66,9 @@ public class QueryCreateTable implements Query {
 
     private boolean validateCreateTableQuery(){
 
+        if (queryParts.size() < 4){
+            return false;
+        }
         if (!queryParts.get(0).toUpperCase().equals(MyQL.QUERY_TYPE_CREATE)){
             return false;
         }
@@ -81,6 +85,8 @@ public class QueryCreateTable implements Query {
         return true;
     }
     private boolean validateBody() throws IllegalArgumentException{
+        this.queryBody = queryParts.subList(4, queryParts.size() - 1);
+
         List<List<String>> arguments = new ArrayList<>();
 
         try{
@@ -141,5 +147,12 @@ public class QueryCreateTable implements Query {
         arguments.get(arguments.size() - 1).set(1, lastArg);
 
         return arguments.stream().flatMap(x -> x.stream()).collect(Collectors.toList());
+    }
+
+    private boolean validateTableName(String tableName){
+        if (tableName.matches("[a-zA-Z][a-zA-Z0-9]*")){
+            return true;
+        }
+        else throw new IllegalArgumentException(tableName + "is not correct table name.");
     }
 }

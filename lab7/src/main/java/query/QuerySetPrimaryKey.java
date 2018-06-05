@@ -51,6 +51,9 @@ public class QuerySetPrimaryKey implements Query {
         if (!queryParts.get(2).toUpperCase().equals("ON")){
             return false;
         }
+        if (!validateTableName(queryParts.get(3))){
+            return false;
+        }
         if (!queryParts.get(4).toUpperCase().equals("ON")){
             return false;
         }
@@ -64,5 +67,12 @@ public class QuerySetPrimaryKey implements Query {
     @Override
     public String getMySQLQuery() {
         return mySQLQuery;
+    }
+
+    private boolean validateTableName(String tableName){
+        if (tableName.matches("[a-zA-Z][a-zA-Z0-9]*")){
+            return true;
+        }
+        else throw new IllegalArgumentException(tableName + "is not correct table name.");
     }
 }
